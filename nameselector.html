@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        p {
+            background-color: teal;
+            color: red;
+            font-size: large;
+            font-family: arial;
+
+        }
+
+        .a {
+            border-style: dotted;
+            border-color: red;
+            font-style: italic;
+
+        }
+
+        #as {
+            font-style: italic;
+            color: black;
+            background-color: teal;
+        }
+
+        .bc {
+            background-color: turquoise;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <p>This is a paragraph</p>
+    <div id="as">
+        <label for="csit">Bsc. CSIT</label><br>
+
+        <input type="checkbox" id="bitm" name="faculty[]" value="BITM">
+        <label for="bitm">BITM</label><br>
+
+        <input type="checkbox" id="bca" name="faculty[]" value="BCA">
+        <label for="bca">BCA</label><br>
+
+        <input type="checkbox" id="bbm" name="faculty[]" value="BBM">
+        <label for="bbm">BBM</label><br><br>
+
+        <label for="message">Message</label><br>
+        <textarea name="usermessage" id="message" cols="30" rows="5" class="bc"></textarea><br><br>
+
+        <label for="fruits">Fruits</label>
+        <select name="fruits" id="fruits" class="bc">
+            <option value="" disabled selected>Select a fruit</option>
+            <option value="apple" class="bc">Apple</option>
+            <option value="orange" class="bc">Orange</option>
+            <option value="grapes" class="bc">Grapes</option>
+            <option value="banana" class="bc">Banana</option>
+        </select><br><br>
+
+        <button type="submit" class="bc">Confirm</button>
+    </div>
+    <p class="a">This is also a paragraph</p>
+    <h1 class="a">This is an example of a heading</h1>
+</body>
+
+</html>

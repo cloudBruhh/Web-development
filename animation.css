@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background: black;
+    overflow: hidden;
+}
+
+
+.circle {
+    width: 80px;
+    height: 80px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    animation: crazy 1s infinite alternate;
+}
+
+@keyframes crazy {
+    0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        background: red;
+    }
+
+    25% {
+        transform: translate(-200px, -100px) scale(1.5) rotate(90deg);
+        background: yellow;
+    }
+
+    50% {
+        transform: translate(150px, 200px) scale(0.5) rotate(180deg);
+        background: teal;
+    }
+
+    75% {
+        transform: translate(-100px, 150px) scale(2) rotate(270deg);
+        background: cyan;
+    }
+
+    100% {
+        transform: translate(200px, -200px) scale(1) rotate(360deg);
+        background: magenta;
+    }
+}

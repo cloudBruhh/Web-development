@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSS Table Example</title>
+    <style>
+        h2 {
+            text-decoration: underline;
+            color: #85a7c7;
+            background-color: #496987;
+            text-align: center;
+            border: 5px solid #6faaab;
+            padding: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            max-width: 600px;
+            width: 600px;
+            height: 300px;
+            margin: 0 auto;
+        }
+
+        tr {
+            background-color: #6faaab;
+        }
+
+        th,
+        td {
+            border: 5px solid white;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #a5bed6;
+        }
+
+        th:hover {
+            background-color: #496987;
+        }
+
+        td:hover {
+            background-color: #85a7c7;
+        }
+
+        .a:hover {
+            background-color: teal;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Student Marks</h2>
+    <table>
+        <tr>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">Maths</th>
+            <th colspan="2">Physics</th>
+            <th rowspan="2">Chemistry</th>
+        </tr>
+        <tr>
+            <th>modern</th>
+            <th>classical</th>
+        </tr>
+        <tr>
+            <td class="a">Rahul</td>
+            <td>78</td>
+            <td>85</td>
+            <td>97</td>
+            <td>93</td>
+        </tr>
+        <tr>
+            <td class="a">Anita</td>
+            <td>88</td>
+            <td>92</td>
+            <td>79</td>
+            <td>97</td>
+        </tr>
+        <tr>
+            <td class="a">Ram</td>
+            <td>79</td>
+            <td>88</td>
+            <td>78</td>
+            <td>92</td>
+        </tr>
+        <tr>
+            <td class="a">Shyam</td>
+            <td>85</td>
+            <td>96</td>
+            <td>92</td>
+            <td>84</td>
+        </tr>
+    </table>
+</body>
+
+</html>

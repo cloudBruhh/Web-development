@@ -1,0 +1,40 @@
+   /* 1. Presence Selector: [attr] */
+   [disabled] {
+       border: 2px dashed #999;
+       background-color: #f0f0f0;
+       color: #555;
+       cursor: not-allowed;
+   }
+
+   /* 2. Exact Match Selector: [attr="value"] */
+   button[data-action="delete"] {
+       background-color: red;
+       color: blue;
+       border: none;
+       padding: 8px 15px;
+       border-radius: 4px;
+   }
+
+   /* 3. Starts With Selector: [attr^="value"] */
+   a[href^="mailto:"] {
+       color: #007bff;
+       /* Blue */
+       font-weight: bold;
+       text-decoration: underline dotted;
+   }
+
+   /* 4. Space-Separated Word Selector: [attr~="value"] */
+   /* Targets elements whose 'data-status' attribute contains the whole word "urgent". */
+   [data-status~="urgent"] {
+       background-color: #ffeb3b;
+       /* Yellow highlight */
+       border: 3px solid #fbc02d;
+       padding: 5px;
+       margin-bottom: 10px;
+   }
+
+   /* 5. Contains Selector: [attr*="value"] */
+   /* Targets elements whose 'data-id' attribute contains the substring "user". */
+   [data-id*="user"] {
+       font-style: italic;
+   }

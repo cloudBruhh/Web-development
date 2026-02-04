@@ -1,0 +1,26 @@
+    p.intro::first-letter {
+        font-size: large;
+        color: lavender;
+        font-weight: bold;
+    }
+
+    p.intro::first-line {
+        color: violet;
+        font-style: italic;
+    }
+
+    p.intro::before {
+        content: "Note:";
+        color: violet;
+        font-weight: bold;
+    }
+
+    input::placeholder {
+        color: blueviolet;
+        font-style: italic;
+    }
+
+    ::selection {
+        background-color: aliceblue;
+        color: aqua;
+    }

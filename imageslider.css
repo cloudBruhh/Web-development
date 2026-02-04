@@ -1,0 +1,47 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+}
+
+.slider {
+    width: 400px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.slides {
+    display: flex;
+    width: 3000px;
+    height: 3000px;
+
+    animation: slide 1s infinite;
+}
+
+.slides img {
+    width: 400px;
+    height: 250px;
+}
+
+@keyframes slide {
+    0% {
+        margin-left: 0;
+    }
+
+    33% {
+        margin-left: -400px;
+    }
+
+    66% {
+        margin-left: -800px;
+    }
+
+    100% {
+        margin-left: 0;
+    }
+}

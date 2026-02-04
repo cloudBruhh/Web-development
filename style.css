@@ -1,0 +1,81 @@
+body {
+    background: teal;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    margin: 0;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    /* center horizontally */
+    align-items: center;
+    /* center vertically */
+
+
+
+}
+
+form {
+
+    text-align: justify;
+    background-color: rgb(108, 134, 157);
+    padding: 50px;
+    border-radius: 80px;
+    box-shadow: 0 4px 8px;
+    max-width: 700px;
+    width: 600px;
+    margin: 0 auto;
+    border-color: rgb(108, 134, 157);
+
+}
+
+input {
+    background-color: #4c737a;
+}
+
+legend {
+    text-align: center;
+    align-self: center;
+    background-color: rgb(108, 134, 157);
+    border-radius: 10px;
+}
+
+legend.a {
+    border-style: solid;
+}
+
+.b {
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+}
+
+fieldset {
+    border: 2px solid #7b8fa6;
+    /* same as form background */
+    padding: 30px;
+    border-radius: 20px;
+}
+
+legend {
+    padding: 0 12px;
+    color: #000;
+    /* text color */
+    background: #7b8fa6;
+    /* SAME as form */
+    border-radius: 12px;
+}
+
+.bc {
+    background: rgb(108, 134, 157);
+}
+
+.container {
+    border-radius: 10px;
+    margin: 20px 20px 20px 20px;
+    padding: 50px;
+    background-color: #4c737a;
+
+}
