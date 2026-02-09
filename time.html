@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var now = new Date();
+        var hours = now.getHours();
+        var minutes = now.getMinutes();
+        var seconds = now.getSeconds();
+        document.writeln("It is currently" + now + "<br>");
+        document.writeln("The current hour is " + hours);
+        document.writeln("<br>The current minute is " + minutes);
+        document.writeln("<br>The current second is " + seconds);
+        if (hours < 12) {
+            document.writeln("<br>Good morning!");
+        }
+        else if (hours < 18) {
+            document.writeln("<br>Good afternoon!");
+        }
+        else {
+            document.writeln("<br>Good evening!");
+        }
+    </script>
+</body>
+
+</html>
