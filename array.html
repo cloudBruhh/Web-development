@@ -10,13 +10,28 @@
 <body>
     <script>
         const car = ["BMW", "Audi", "Mercedes"];
+        car.push("Lexus");
+        car.shift("BMW");
+        car.unshift("Toyota");
+        car.push("Honda", "Ford");
+        car.pop("Ford");
         for (let i = 0; i < car.length; i++) {
-            document.write(car[i] + "<br>");
+            if (i === car.length - 1) {
+                document.write(car[i]);
+            } else {
+                document.write(car[i] + ", ");
+            }
         }
+        document.write("<br><br>");
         const num = [5, 3, 4, 2, 1];
         num.sort();
         for (let i = 0; i < num.length; i++) {
-            document.write(num[i] + " ");
+            if (i === num.length - 1) {
+                document.write(num[i]);
+            } else {
+                document.write(num[i] + ", ");
+            }
+
         }
     </script>
 </body>
