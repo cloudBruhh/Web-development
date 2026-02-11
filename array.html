@@ -22,6 +22,16 @@
                 document.write(car[i] + ", ");
             }
         }
+        index = car.indexOf("Mercedes");
+        document.write("<br><br>" + "The index of Mercedes is: " + index + "<br><br>");
+        concat = car.concat(["Kia", "Hyundai"]);
+        for (let i = 0; i < concat.length; i++) {
+            if (i === concat.length - 1) {
+                document.write(concat[i]);
+            } else {
+                document.write(concat[i] + ", " + "<br><br>");
+            }
+        }
         document.write("<br><br>");
         const num = [5, 3, 4, 2, 1];
         num.sort();
@@ -34,6 +44,5 @@
 
         }
     </script>
-</body>
 
 </html>
