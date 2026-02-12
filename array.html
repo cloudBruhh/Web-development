@@ -22,6 +22,7 @@
                 document.write(car[i] + ", ");
             }
         }
+        document.write("<br><br>-------------------------------------------------------<br><br>");
         index = car.indexOf("Mercedes");
         document.write("<br><br>" + "The index of Mercedes is: " + index + "<br><br>");
         concat = car.concat(["Kia", "Hyundai"]);
@@ -32,6 +33,17 @@
                 document.write(concat[i] + ", " + "<br><br>");
             }
         }
+        document.write("<br><br>-------------------------------------------------------<br><br>");
+        let newcars = concat.slice(2, 5);
+        document.write("<br><br>");
+        for (let i = 0; i < newcars.length; i++) {
+            if (i === newcars.length - 1) {
+                document.write(newcars[i]);
+            } else {
+                document.write(newcars[i] + ", ");
+            }
+        }
+        document.write("<br><br>-------------------------------------------------------<br><br>");
         document.write("<br><br>");
         const num = [5, 3, 4, 2, 1];
         num.sort();
