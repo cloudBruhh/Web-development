@@ -44,6 +44,17 @@
             }
         }
         document.write("<br><br>-------------------------------------------------------<br><br>");
+        let newercars = concat.splice(2, 5);
+        document.write("<br><br>");
+        for (let i = 0; i < newercars.length; i++) {
+            if (i === newercars.length - 1) {
+                document.write(newercars[i]);
+            } else {
+                document.write(newcars[i] + ", ");
+            }
+        }
+
+        document.write("<br><br>-------------------------------------------------------<br><br>");
         document.write("<br><br>");
         const num = [5, 3, 4, 2, 1];
         num.sort();
