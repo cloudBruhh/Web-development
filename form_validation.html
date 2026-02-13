@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Form Validation</title>
+</head>
+
+<body>
+    <form name="myForm">
+        Name: <input type="text" name="name" id="name"><br><br>
+
+        Email: <input type="text" name="email" id="email"><br><br>
+
+        Password: <input type="password" name="password" id="password"><br><br>
+
+        Age: <input type="text" name="age" id="age"><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        // Get form element
+        const form = document.myForm;
+
+        // Add submit event listener
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form from submitting
+
+            var name = form.name.value;
+            var email = form.email.value;
+            var password = form.password.value;
+            var age = form.age.value;
+
+            if (name == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+            if (email == "") {
+                alert("Email must be filled out");
+                return false;
+            }
+            if (password.length < 6) {
+                alert("Password must be at least 6 characters");
+                return false;
+            }
+            if (isNaN(age) || age <= 0) {
+                alert("Please enter a valid age");
+                return false;
+            }
+
+            alert("Form submitted successfully!");
+        });
+
+        // Add focus event listener - when user clicks on input
+        document.getElementById('name').addEventListener('focus', function () {
+            console.log('Name field focused');
+            this.style.backgroundColor = '#ffffcc';
+        });
+
+        // Add blur event listener - when user leaves input
+        document.getElementById('name').addEventListener('blur', function () {
+            console.log('Name field lost focus');
+            this.style.backgroundColor = '';
+        });
+
+        // Add input event listener - when user types
+        document.getElementById('email').addEventListener('input', function () {
+            console.log('Email value:', this.value);
+        });
+
+        // Add keydown event listener - when key is pressed
+        document.getElementById('password').addEventListener('keydown', function (event) {
+            console.log('Key pressed:', event.key);
+        });
+    </script>
+
+</body>
+
+</html>
