@@ -54,3 +54,56 @@ body {
 main {
     padding: 20px;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #4CAF50;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    padding: 20px;
+}
+
+aside {
+    background-color: #a19a9a;
+    width: 25%;
+    padding: 20px;
+
+}
+
+section {
+    width: 75%;
+    padding: 20px;
+    background-color: rgb(99, 138, 138);
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: auto;
+}
