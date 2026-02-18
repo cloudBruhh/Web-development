@@ -6,13 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | John Doe</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .about-content {
+            display: flex;
+            gap: 40px;
+            padding: 20px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .skills {
+            flex: 1;
+            border-style: solid;
+        }
+
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .skill-item {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .about-text {
+            background-color: whitesmoke;
+            border-style: solid;
+            border-radius: 10px;
+        }
+
+        .page-header {
+            background-color: teal;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
     <nav class="navbar">
         <div class="logo">John Doe</div>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="home.html">Home</a></li>
             <li><a href="about.html" class="active">About</a></li>
             <li><a href="services.html">Services</a></li>
             <li><a href="contact.html">Contact</a></li>
@@ -20,12 +62,12 @@
     </nav>
 
     <section class="page-header">
-        <h1>About Me</h1>
+        <h1 class="a">About Me</h1>
     </section>
 
     <section class="about-content">
         <div class="about-text">
-            <h2>Who I Am</h2>
+            <h2 class="a">Who I Am</h2>
             <p>I am a student of Bsc. CSIT</p>
 
             <h2>My Journey</h2>
