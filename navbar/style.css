@@ -119,8 +119,8 @@ footer {
 }
 
 iframe {
-  width: 25%;
-  height: 400px;
+  width: 50%;
+  height: 200px;
   padding: 20px;
 }
 
@@ -130,4 +130,3 @@ iframe {
   text-align: center;
   padding: 20px;
 }
-
