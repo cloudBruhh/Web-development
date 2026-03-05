@@ -8,8 +8,6 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
 
-      const gravity = 0.05;
-
       let particles = [];
       const mouse = { x: null, y: null, radius: 150 };
 
@@ -23,19 +21,20 @@
           this.x = Math.random() * canvas.width;
           this.y = Math.random() * canvas.height;
           this.size = Math.random() * 3 + 1;
-          this.vx = (Math.random() - 0.5) * 2;
-          this.vy = (Math.random() - 0.5) * 2;
+          this.vx = (Math.random() - 0.5) * 0.4;
+          this.vy = (Math.random() - 0.5) * 0.4;
         }
         update() {
-          this.vy += gravity;
+          this.vx += (Math.random() - 0.5) * 0.02;
+          this.vy += (Math.random() - 0.5) * 0.02;
+          this.vx = Math.max(-1, Math.min(1, this.vx));
+          this.vy = Math.max(-1, Math.min(1, this.vy));
           this.x += this.vx;
           this.y += this.vy;
-          if (this.x > canvas.width || this.x < 0) this.vx *= -1;
-          if (this.y < 0) this.vy *= -1;
-          if (this.y > canvas.height) {
-            this.y = canvas.height;
-            this.vy *= -0.7;
-          }
+          if (this.x > canvas.width) this.x = 0;
+          if (this.x < 0) this.x = canvas.width;
+          if (this.y > canvas.height) this.y = 0;
+          if (this.y < 0) this.y = canvas.height;
 
           // Mouse interaction
           let dx = mouse.x - this.x;
