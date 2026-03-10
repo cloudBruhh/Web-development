@@ -19,7 +19,7 @@
       function validateForm() {
         const emailInput = document.getElementById('email');
         const email = emailInput.value;
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const emailPattern = /^[^\s@]+@gmail+\.com+$/;
 
         if (!emailPattern.test(email)) {
           alert('Please enter a valid email address.');
