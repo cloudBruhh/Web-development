@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <link href="css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <form onsubmit="return validateForm();">
+      <label for="user">User:</label>
+      <input type="text" id="user" name="user" />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+      function validateForm() {
+        const userInput = document.getElementById("user");
+        const user = userInput.value;
+        const userPattern = /^[a-zA-Z]{6}$/;
+
+        if (!userPattern.test(user)) {
+          alert("Please enter a valid user name.");
+          return false; // Prevent form submission
+        }
+        return true; // Allow form submission
+      }
+    </script>
+  </body>
+</html>
