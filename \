@@ -69,8 +69,7 @@
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordPattern =
           /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-        const phonePattern =
-          /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+        const phonePattern = /^\d{3}-\d{3]-\d{4}$/;
         const agePattern = /^(1[8-9]|[2-9]\d)$/;
         const datePattern = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -79,7 +78,9 @@
           return false;
         }
         if (!phonePattern.test(phone)) {
-          alert("Enter the phone no in correct format 890-657-4353");
+          alert(
+            "Enter a valid phone number starting with 9 and followed by 8 digits",
+          );
           return false;
         }
         if (!emailPattern.test(email)) {
