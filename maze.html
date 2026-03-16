@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Game</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0f;
+            background-image: 
+                radial-gradient(ellipse at top, #1a1a2e 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, #16213e 0%, transparent 50%);
+            font-family: 'Orbitron', sans-serif;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 15px;
+            padding: 0 10px;
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 3px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.6rem;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ff9f43;
+            text-shadow: 0 0 15px rgba(255, 159, 67, 0.6);
+        }
+
+        .maze-wrapper {
+            position: relative;
+            padding: 4px;
+            background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+            border-radius: 12px;
+            box-shadow: 
+                0 0 30px rgba(255, 159, 67, 0.3),
+                0 0 60px rgba(255, 107, 107, 0.2);
+        }
+
+        #mazeCanvas {
+            display: block;
+            background: #0d0d15;
+            border-radius: 8px;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 15, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            z-index: 100;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .overlay-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .overlay-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .overlay-stat {
+            text-align: center;
+        }
+
+        .overlay-stat-label {
+            font-size: 0.7rem;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        .overlay-stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ff9f43;
+        }
+
+        .start-btn {
+            padding: 15px 40px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #0a0a0f;
+            background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(255, 159, 67, 0.5);
+            margin-top: 10px;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 159, 67, 0.8);
+        }
+
+        .difficulty {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .diff-btn {
+            padding: 8px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #666;
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .diff-btn:hover {
+            border-color: #ff9f43;
+            color: #ff9f43;
+        }
+
+        .diff-btn.active {
+            background: linear-gradient(135deg, #ff9f43, #ff6b6b);
+            border-color: transparent;
+            color: #0a0a0f;
+        }
+
+        .controls-hint {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .key {
+            width: 35px;
+            height: 35px;
+            background: #1a1a2e;
+            border: 2px solid #333;
+            border-radius: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #666;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">MAZE</div>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-label">MOVES</div>
+                <div class="stat-value" id="moves">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">TIME</div>
+                <div class="stat-value" id="timer">0:00</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="maze-wrapper">
+        <canvas id="mazeCanvas" width="480" height="480"></canvas>
+    </div>
+
+    <div class="controls-hint">
+        <div class="key">↑</div>
+        <div class="key">↓</div>
+        <div class="key">←</div>
+        <div class="key">→</div>
+    </div>
+
+    <div class="difficulty">
+        <button class="diff-btn active" onclick="setDifficulty(15)">EASY</button>
+        <button class="diff-btn" onclick="setDifficulty(20)">MEDIUM</button>
+        <button class="diff-btn" onclick="setDifficulty(25)">HARD</button>
+    </div>
+
+    <div class="overlay" id="winOverlay">
+        <div class="overlay-title">YOU WIN!</div>
+        <div class="overlay-stats">
+            <div class="overlay-stat">
+                <div class="overlay-stat-label">MOVES</div>
+                <div class="overlay-stat-value" id="finalMoves">0</div>
+            </div>
+            <div class="overlay-stat">
+                <div class="overlay-stat-label">TIME</div>
+                <div class="overlay-stat-value" id="finalTime">0:00</div>
+            </div>
+        </div>
+        <button class="start-btn" onclick="initGame()">PLAY AGAIN</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('mazeCanvas');
+        const ctx = canvas.getContext('2d');
+        const movesEl = document.getElementById('moves');
+        const timerEl = document.getElementById('timer');
+        const winOverlay = document.getElementById('winOverlay');
+        const finalMovesEl = document.getElementById('finalMoves');
+        const finalTimeEl = document.getElementById('finalTime');
+        const diffBtns = document.querySelectorAll('.diff-btn');
+
+        let cellSize;
+        let cols, rows;
+        let maze = [];
+        let player = { x: 0, y: 0 };
+        let moves = 0;
+        let startTime;
+        let timerInterval;
+        let isGameRunning = false;
+        let currentDifficulty = 15;
+
+        function setDifficulty(size) {
+            currentDifficulty = size;
+            diffBtns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            initGame();
+        }
+
+        class Cell {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.walls = { top: true, right: true, bottom: true, left: true };
+                this.visited = false;
+            }
+        }
+
+        function index(x, y) {
+            if (x < 0 || y < 0 || x >= cols || y >= cols) return -1;
+            return x + y * cols;
+        }
+
+        function removeWalls(a, b) {
+            const x = a.x - b.x;
+            if (x === 1) { a.walls.left = false; b.walls.right = false; }
+            if (x === -1) { a.walls.right = false; b.walls.left = false; }
+            const y = a.y - b.y;
+            if (y === 1) { a.walls.top = false; b.walls.bottom = false; }
+            if (y === -1) { a.walls.bottom = false; b.walls.top = false; }
+        }
+
+        function generateMaze() {
+            maze = [];
+            cols = currentDifficulty;
+            rows = currentDifficulty;
+            cellSize = canvas.width / cols;
+
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    maze.push(new Cell(x, y));
+                }
+            }
+
+            const stack = [];
+            const start = maze[0];
+            start.visited = true;
+            stack.push(start);
+
+            while (stack.length > 0) {
+                const current = stack[stack.length - 1];
+                const neighbors = [];
+
+                const top = maze[index(current.x, current.y - 1)];
+                const right = maze[index(current.x + 1, current.y)];
+                const bottom = maze[index(current.x, current.y + 1)];
+                const left = maze[index(current.x - 1, current.y)];
+
+                if (top && !top.visited) neighbors.push(top);
+                if (right && !right.visited) neighbors.push(right);
+                if (bottom && !bottom.visited) neighbors.push(bottom);
+                if (left && !left.visited) neighbors.push(left);
+
+                if (neighbors.length > 0) {
+                    const next = neighbors[Math.floor(Math.random() * neighbors.length)];
+                    removeWalls(current, next);
+                    next.visited = true;
+                    stack.push(next);
+                } else {
+                    stack.pop();
+                }
+            }
+        }
+
+        function drawMaze() {
+            ctx.fillStyle = '#0d0d15';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < maze.length; i++) {
+                const cell = maze[i];
+                const x = cell.x * cellSize;
+                const y = cell.y * cellSize;
+
+                ctx.strokeStyle = '#ff9f43';
+                ctx.lineWidth = 2;
+                ctx.shadowColor = '#ff9f43';
+                ctx.shadowBlur = 5;
+
+                ctx.beginPath();
+                if (cell.walls.top) {
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + cellSize, y);
+                }
+                if (cell.walls.right) {
+                    ctx.moveTo(x + cellSize, y);
+                    ctx.lineTo(x + cellSize, y + cellSize);
+                }
+                if (cell.walls.bottom) {
+                    ctx.moveTo(x + cellSize, y + cellSize);
+                    ctx.lineTo(x, y + cellSize);
+                }
+                if (cell.walls.left) {
+                    ctx.moveTo(x, y + cellSize);
+                    ctx.lineTo(x, y);
+                }
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+
+            const goalX = (cols - 1) * cellSize + cellSize / 2;
+            const goalY = (rows - 1) * cellSize + cellSize / 2;
+            const gradient = ctx.createRadialGradient(goalX, goalY, 0, goalX, goalY, cellSize / 2);
+            gradient.addColorStop(0, '#00ff88');
+            gradient.addColorStop(1, '#00ccff');
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = '#00ff88';
+            ctx.shadowBlur = 20;
+            ctx.beginPath();
+            ctx.arc(goalX, goalY, cellSize / 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        function drawPlayer() {
+            const x = player.x * cellSize + cellSize / 2;
+            const y = player.y * cellSize + cellSize / 2;
+            
+            const gradient = ctx.createRadialGradient(x, y, 0, x, y, cellSize / 2.5);
+            gradient.addColorStop(0, '#fff');
+            gradient.addColorStop(0.5, '#ff6b6b');
+            gradient.addColorStop(1, '#ff9f43');
+            
+            ctx.fillStyle = gradient;
+            ctx.shadowColor = '#ff6b6b';
+            ctx.shadowBlur = 15;
+            ctx.beginPath();
+            ctx.arc(x, y, cellSize / 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+
+        function draw() {
+            drawMaze();
+            drawPlayer();
+        }
+
+        function initGame() {
+            generateMaze();
+            player = { x: 0, y: 0 };
+            moves = 0;
+            movesEl.textContent = '0';
+            timerEl.textContent = '0:00';
+            isGameRunning = true;
+
+            winOverlay.classList.add('hidden');
+
+            if (timerInterval) clearInterval(timerInterval);
+            startTime = Date.now();
+            timerInterval = setInterval(updateTimer, 1000);
+
+            draw();
+        }
+
+        function updateTimer() {
+            if (!isGameRunning) return;
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const mins = Math.floor(elapsed / 60);
+            const secs = elapsed % 60;
+            timerEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function movePlayer(dx, dy) {
+            if (!isGameRunning) return;
+
+            const current = maze[index(player.x, player.y)];
+            
+            if (dx === 1 && !current.walls.right) player.x++;
+            else if (dx === -1 && !current.walls.left) player.x--;
+            else if (dy === 1 && !current.walls.bottom) player.y++;
+            else if (dy === -1 && !current.walls.top) player.y--;
+
+            moves++;
+            movesEl.textContent = moves;
+            draw();
+
+            if (player.x === cols - 1 && player.y === rows - 1) {
+                gameWin();
+            }
+        }
+
+        function gameWin() {
+            isGameRunning = false;
+            clearInterval(timerInterval);
+            
+            const elapsed = Math.floor((Date.now() - startTime) / 1000);
+            const mins = Math.floor(elapsed / 60);
+            const secs = elapsed % 60;
+            
+            finalMovesEl.textContent = moves;
+            finalTimeEl.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+            winOverlay.classList.remove('hidden');
+        }
+
+        document.addEventListener('keydown', (e) => {
+            const code = e.code;
+            
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(code)) {
+                e.preventDefault();
+            }
+
+            if (!isGameRunning) return;
+
+            switch (code) {
+                case 'ArrowUp':
+                case 'KeyW':
+                    movePlayer(0, -1);
+                    break;
+                case 'ArrowDown':
+                case 'KeyS':
+                    movePlayer(0, 1);
+                    break;
+                case 'ArrowLeft':
+                case 'KeyA':
+                    movePlayer(-1, 0);
+                    break;
+                case 'ArrowRight':
+                case 'KeyD':
+                    movePlayer(1, 0);
+                    break;
+            }
+        });
+
+        initGame();
+    </script>
+</body>
+</html>
