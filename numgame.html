@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+        p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 150px;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #message {
+            margin-top: 1rem;
+            font-weight: bold;
+            min-height: 24px;
+        }
+        .correct {
+            color: #4CAF50;
+        }
+        .wrong {
+            color: #f44336;
+        }
+        .hint {
+            color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Number Guessing Game</h1>
+        <p>I'm thinking of a number between 1 and 100</p>
+        <input type="number" id="guessInput" min="1" max="100">
+        <button onclick="makeGuess()">Guess</button>
+        <div id="message"></div>
+        <p>Attempts: <span id="attempts">0</span></p>
+        <button onclick="resetGame()" style="background-color: #2196F3; margin-top: 10px;">Play Again</button>
+    </div>
+
+    <script>
+        let randomNumber;
+        let attempts;
+
+        function initGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('guessInput').value = '';
+            document.getElementById('message').textContent = '';
+            document.getElementById('attempts').textContent = '0';
+        }
+
+        function makeGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            const messageEl = document.getElementById('message');
+            
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                messageEl.textContent = 'Please enter a number between 1 and 100';
+                messageEl.className = 'wrong';
+                return;
+            }
+
+            attempts++;
+            document.getElementById('attempts').textContent = attempts;
+
+            if (guess === randomNumber) {
+                messageEl.textContent = `Correct! You got it in ${attempts} attempts!`;
+                messageEl.className = 'correct';
+            } else if (guess < randomNumber) {
+                messageEl.textContent = 'Too low! Try again.';
+                messageEl.className = 'hint';
+            } else {
+                messageEl.textContent = 'Too high! Try again.';
+                messageEl.className = 'hint';
+            }
+        }
+
+        function resetGame() {
+            initGame();
+        }
+
+        document.getElementById('guessInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                makeGuess();
+            }
+        });
+
+        initGame();
+    </script>
+</body>
+</html>
